@@ -22,3 +22,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// AUTH
+Route::group([
+    'middleware' => 'jwt.auth'
+], function () {
+    // Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'profile']);
+});
