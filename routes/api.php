@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,4 +38,11 @@ Route::group([
     'middleware' => ['jwt.auth', 'isSuperAdmin']
 ], function () {
     Route::post('/add_super_admin_role/{id}', [UserController::class, 'addSuperAdminRoleByIdUser']);
+});
+
+// BOOKS
+Route::group([
+    'middleware' => ['jwt.auth']
+], function () {
+    Route::post('/books', [BookController::class, 'createBook']);
 });
