@@ -42,21 +42,30 @@ class BookController extends Controller
             $newTitle = $request->input('title');
             $newAuthor = $request->input('author');
 
-            $book = Book::query()
-                ->where('user_id', $userId)
-                ->where('id', '=', $id)
-                ->first();
+            // $book = Book::query()
+            //     ->where('user_id', $userId)
+            //     ->where('id', '=', $id)
+            //     ->first();
 
-            if(!$book) {
+            $updateBook = Book::where('user_id', $userId)
+                ->where('id', $id)
+                ->update([
+                    'title' => $newTitle,
+                    'author' => $newAuthor
+                ]);
+
+            // dd($updateBook);
+
+            if(!$updateBook) {
                 return response()->json([
                     "success" => true,
                     "message" => "Book doesnt exists"
                 ], 404); 
             }
 
-            $book->title = $newTitle;
-            $book->author = $newAuthor;
-            $book->save();
+            // $book->title = $newTitle;
+            // $book->author = $newAuthor;
+            // $book->save();
 
             return response()->json([
                 "success" => true,
@@ -66,7 +75,7 @@ class BookController extends Controller
             return response()->json([
                 "success" => false,
                 "message" => "Error updating Book"
-            ], 201);
+            ], 500);
         }
     }
 }
