@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,12 @@ Route::group([
 ], function () {
     // Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'profile']);
+});
+
+
+// USERS
+Route::group([
+    'middleware' => 'jwt.auth'
+], function () {
+    Route::post('/add_super_admin_role/{id}', [UserController::class, 'addSuperAdminRoleByIdUser']);
 });
