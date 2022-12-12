@@ -45,4 +45,5 @@ Route::group([
     'middleware' => ['jwt.auth']
 ], function () {
     Route::post('/books', [BookController::class, 'createBook']);
+    Route::put('/books/{id}', [BookController::class, 'updateBook']);
 });
