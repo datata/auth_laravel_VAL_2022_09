@@ -46,4 +46,5 @@ Route::group([
 ], function () {
     Route::post('/books', [BookController::class, 'createBook']);
     Route::put('/books/{id}', [BookController::class, 'updateBook']);
+    Route::get('/books', [BookController::class, 'getAllBooks']);
 });
